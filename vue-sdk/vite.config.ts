@@ -18,9 +18,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        entryFileNames: 'assets/main.js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]'
+        entryFileNames: 'main.js',
+        assetFileNames: ({ name, type }) => {
+          if (type === 'asset' && name && name.endsWith('.css')) {
+            return 'style.css';
+          }
+          return '[name].[ext]';
+        }
       }
     }
   },
