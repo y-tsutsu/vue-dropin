@@ -1,23 +1,15 @@
 import { createApp, h } from 'vue'
 import App from './App.vue'
 
-type Props = {
-  enableFoo: boolean
-  enableBar: boolean
-  enableBaz: boolean
+const defaultOptions = {
+  enableFoo: false,
+  enableBar: false,
+  enableBaz: false,
 }
 
-function parseBoolean(value: string | undefined): boolean {
-  return value === 'true'
+export function initialize(selector: string, options: Partial<typeof defaultOptions> = {}) {
+  const mergedOptions = { ...defaultOptions, ...options }
+  document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
+    createApp(App, mergedOptions).mount(el)
+  });
 }
-
-document.querySelectorAll<HTMLElement>('#vue-sdk').forEach((el) => {
-  const props: Props = {
-    enableFoo: parseBoolean(el.dataset.enableFoo),
-    enableBar: parseBoolean(el.dataset.enableBar),
-    enableBaz: parseBoolean(el.dataset.enableBaz)
-  }
-  createApp({
-    render: () => h(App, props)
-  }).mount(el)
-})

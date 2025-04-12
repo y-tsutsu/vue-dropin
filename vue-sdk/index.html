@@ -10,7 +10,14 @@
 
 <body>
   <div id="vue-sdk"></div>
-  <script type="module" src="/src/main.ts"></script>
+  <script type="module">
+    import { initialize } from '/src/main.ts';
+
+    initialize('#vue-sdk', {
+      enableFoo: true,
+      enableBar: true
+    });
+  </script>
 </body>
 
 </html>
