@@ -1,15 +1,26 @@
 import { createApp, h } from 'vue'
 import App from './App.vue'
+import type { SdkOptions } from './options'
 
-const defaultOptions = {
+const defaultOptions: SdkOptions = {
+  title: "This is Vue SDK!!",
+  count: 0,
   enableFoo: false,
   enableBar: false,
   enableBaz: false,
 }
 
-export function initialize(selector: string, options: Partial<typeof defaultOptions> = {}) {
+export function create(selector: string, options: Partial<typeof defaultOptions> = {}) {
+  const el = document.querySelector<HTMLElement>(selector)
+  if (!el) {
+    console.error(`Element not found: ${selector}`)
+    return null
+  }
   const mergedOptions = { ...defaultOptions, ...options }
-  document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
-    createApp(App, mergedOptions).mount(el)
-  });
+  const vm = createApp(App, { options: mergedOptions }).mount(el)
+  return {
+    setOptions: (newOptions: Partial<SdkOptions>) => {
+      (vm as any).setOptions(newOptions)
+    }
+  }
 }

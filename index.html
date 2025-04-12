@@ -17,10 +17,18 @@
 
     <script src="/vue-sdk/dist/main.iife.js"></script>
     <script type="module">
-        VueSdk.initialize('#vue-sdk', {
+        const sdk = VueSdk.create('#vue-sdk', {
             enableFoo: true,
             enableBar: true
         });
+
+        let counter = 0
+        setInterval(() => {
+            counter++
+            sdk.setOptions({
+                count: counter,
+            })
+        }, 1000)
     </script>
 </body>
 

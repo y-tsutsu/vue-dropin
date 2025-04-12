@@ -53,10 +53,10 @@ Vue側の開発環境でdistディレクトリを生成していること
 
 ## 利用方法
 
+* `link`タグで`dist/main.css`を指定
 * `script`タグで`dist/main.js`を指定
-* `link`タグで`dist/style.css`を指定
-* `id="vue-sdk"`をつけたタグを書けばそこにVue3側で開発したコンポーネントが配置される
-* オプションパラメータは任意に`data-*`属性で指定可能
+* JavaScriptコードでVueSdk.create()を呼び出してマウントする箇所のセレクタ（id）とオプションを指定
+* VueSdk.create()の戻り値のインスタンス経由で公開関数を使ってオプションの再設定が可能
 
 ## サンプル
 
