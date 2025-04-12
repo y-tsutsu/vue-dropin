@@ -1,6 +1,6 @@
 import { createApp, h } from 'vue'
 import App from './App.vue'
-import type { SdkOptions } from './options'
+import type { SdkOptions } from './types/options'
 
 const defaultOptions: SdkOptions = {
   title: "This is Vue SDK!!",

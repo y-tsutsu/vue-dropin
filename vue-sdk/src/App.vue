@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { SdkOptions } from './options'
-
-const title = ref("This is Vue SDK!!")
+import { reactive } from "vue";
+import type { SdkOptions } from './types/options'
+import OptionDisplay from "./components/OptionDisplay.vue";
 
 const props = defineProps<{ options: SdkOptions }>()
-const options = ref({ ...props.options })
+const options = reactive({ ...props.options })
 
 defineExpose({
   setOptions: (newOptions: Partial<SdkOptions>) => {
-    options.value = { ...options.value, ...newOptions }
+    Object.assign(options, newOptions)
   }
 })
 </script>
@@ -20,11 +19,7 @@ defineExpose({
   <h2>ようこそ，Vue製のSDK！</h2>
   <p id="message">これはシンプルなサンプルです {{ options.count }} 🐣</p>
 
-  <div>
-    <p v-if="options.enableFoo">Foo 機能が有効です 🍾</p>
-    <p v-if="options.enableBar">Bar 機能が有効です 🍷</p>
-    <p v-if="options.enableBaz">Baz 機能が有効です 🍺</p>
-  </div>
+  <OptionDisplay v-bind="props" />
 </template>
 
 <style scoped>
@@ -40,9 +35,5 @@ h2 {
 
 p {
   text-align: center;
-}
-
-P#message {
-  color: #5eb954
 }
 </style>
